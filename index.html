@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>AJALTOUN FESTIVALS PnL</title>
+<link rel="icon" type="image/png" href="./favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./reservations.js"></script>
+<style>
+body{margin:0;background:#f6f4f0;color:#233E78;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#E0675F}a:hover{color:#b8493f}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (min-width:1900px){#pnl-root{zoom:1.3}}
+@media (min-width:2500px){#pnl-root{zoom:1.8}}
+@media (max-width:1100px) and (min-width:761px){#pnl-root{zoom:.8}}
+@media (max-width:760px){
+#pnl-root{padding:24px 14px 64px!important;max-width:100%!important}
+#pnl-root h1{font-size:34px!important}#pnl-root h2{font-size:26px!important}
+#pnl-root p,#pnl-root footer{font-size:16px!important}
+[data-m="header"]{grid-template-columns:1fr!important;gap:16px!important}
+[data-m="head"]{display:none!important}
+[data-m="row"]{display:flex!important;flex-wrap:wrap;gap:4px 16px!important;font-size:16px!important;min-width:0!important;padding:10px 6px!important;align-items:baseline!important}
+[data-m="row"]>*{text-align:left!important;min-width:0}
+[data-m="row"]>[data-l]::before{content:attr(data-l) ": ";color:#4a5a7c;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:400}
+[data-m="row"]>[data-l=""]::before{content:none}
+#pnl-root section{max-width:100%!important}
+#pnl-root [style*="font-size: 56px"]{font-size:34px!important}
+#pnl-root [style*="font-size: 48px"]{font-size:30px!important}
+#pnl-root [style*="font-size: 36px"]{font-size:26px!important}
+#pnl-root [style*="font-size: 30px"]{font-size:20px!important}
+#pnl-root [style*="font-size: 26px"]{font-size:19px!important}
+#pnl-root [style*="font-size: 23px"],#pnl-root [style*="font-size: 22px"]{font-size:16px!important}
+#pnl-root [style*="font-size: 20px"],#pnl-root [style*="font-size: 18px"]{font-size:14px!important}
+#pnl-root [style*="overflow-x: auto"]{overflow-x:visible!important}
+#pnl-root iframe{min-height:60vh}
+}
+</style>
+</helmet>
+<div id="pnl-root" style="max-width:1440px;margin:0 auto;padding:48px 32px 96px;text-wrap:pretty">
+
+<header data-m="header" style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;align-items:center;padding-bottom:36px;border-bottom:1px solid #233E78;animation:rise .6s ease both">
+  <image-slot id="logo" shape="rounded" radius="8" src="./logo.jpg" style="width:120px;height:150px" placeholder="Festival logo"></image-slot>
+  <div>
+    <div style="font-size:18px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#E0675F">Financial Report · Profit &amp; Loss</div>
+    <h1 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:clamp(44px,5vw,72px);line-height:1.05;margin:8px 0 12px">Ajaltoun Festivals 2026</h1>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 24px;font-size:23px;color:#4a5a7c">
+      <span>24 – 31 August 2026</span><span>Mar Zakhia, Ajaltoun, Lebanon</span><span>7 nights</span><span>Amounts in USD</span>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ isSummary }}" hint-placeholder-val="{{ true }}">
+<p style="font-size:30px;color:#233E78;margin:32px 0 0;max-width:1100px;line-height:1.45">Full Financial Report for Ajaltoun Festivals 2026<br><span style="font-size:24px;color:#4a5a7c">Prepared for the Municipality of Ajaltoun by the Festivals Committee.</span></p>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#233E78;margin-top:40px;border:1px solid #233E78">
+  <div onClick="{{ goCost }}" style="background:#f6f4f0;padding:24px 22px;cursor:pointer" style-hover="background:#eef1f8">
+    <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#4a5a7c">Total Cost</div>
+    <div style="font-family:'Libre Baskerville',serif;font-size:36px;margin-top:8px">6 Cost Categories</div>
+    <div style="font-size:20px;margin-top:4px;color:#E0675F;font-weight:600">View Details →</div>
+  </div>
+  <div onClick="{{ goIncome }}" style="background:#f6f4f0;padding:24px 22px;cursor:pointer" style-hover="background:#eef1f8">
+    <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#4a5a7c">Total Income</div>
+    <div style="font-family:'Libre Baskerville',serif;font-size:36px;margin-top:8px">5 Revenue Streams</div>
+    <div style="font-size:20px;margin-top:4px;color:#E0675F;font-weight:600">View Details →</div>
+  </div>
+</section>
+
+<section style="margin-top:56px;max-width:900px;margin-left:auto;margin-right:auto">
+  <div>
+    <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 18px;text-align:center">Income by Category</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ incomeCats }}" as="c" hint-placeholder-count="4">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:22px;margin-bottom:5px"><span>{{ c.name }}</span><span style="font-weight:600">{{ c.total }} · {{ c.pct }}</span></div>
+          <div style="height:8px;background:#dfe3ec"><div style="height:100%;background:#E0675F;width:{{ c.pct }}"></div></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin-top:48px">
+    <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 18px;text-align:center">Cost by Category</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ expenseCats }}" as="c" hint-placeholder-count="6">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:22px;margin-bottom:5px"><span>{{ c.name }}</span><span style="font-weight:600">{{ c.total }} · {{ c.pct }}</span></div>
+          <div style="height:8px;background:#dfe3ec;display:flex"><div style="height:100%;background:#233E78;width:{{ c.cashPct }}"></div><div style="height:100%;background:#8fa3d1;width:{{ c.inKindPct }}"></div></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:14px;justify-content:center;font-size:20px;color:#4a5a7c">
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:12px;height:12px;background:#233E78;display:inline-block"></i>Paid in Cash</span>
+      <span style="display:flex;align-items:center;gap:6px"><i style="width:12px;height:12px;background:#8fa3d1;display:inline-block"></i>Covered by Sponsors</span>
+    </div>
+  </div>
+</section>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:#233E78;margin-top:56px;border:1px solid #233E78">
+  <div style="background:#f6f4f0;padding:24px 22px">
+    <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#4a5a7c">Total Cost</div>
+    <div style="font-family:'Libre Baskerville',serif;font-size:56px;margin-top:8px">{{ expenseTotal }}</div>
+    <div style="font-size:20px;margin-top:4px;color:#4a5a7c">6 Cost Categories</div>
+  </div>
+  <div style="background:#f6f4f0;padding:24px 22px">
+    <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#4a5a7c">Total Income</div>
+    <div style="font-family:'Libre Baskerville',serif;font-size:56px;margin-top:8px">{{ incomeTotal }}</div>
+    <div style="font-size:20px;margin-top:4px;color:#4a5a7c">5 Revenue Streams</div>
+  </div>
+  <div style="background:#E0675F;color:#ffffff;padding:24px 22px">
+    <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;opacity:.9">{{ netLabel }}</div>
+    <div style="font-family:'Libre Baskerville',serif;font-size:56px;margin-top:8px">{{ net }}</div>
+    <div style="font-size:20px;margin-top:4px;opacity:.9">{{ margin }} of Income</div>
+  </div>
+</section>
+
+<section style="margin-top:56px;max-width:900px;margin-left:auto;margin-right:auto">
+  <div>
+    <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 18px;text-align:center">Balance Sheet</h2>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ balance }}" as="b" hint-placeholder-count="5">
+        <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #dfe3ec;font-size:23px"><span>{{ b.name }}</span><span style="font-variant-numeric:tabular-nums;font-weight:600;color:{{ b.color }}">{{ b.amt }}</span></div>
+      </sc-for>
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Total P&amp;L</span><span style="color:#E0675F">{{ net }}</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="margin-top:56px;max-width:900px;margin-left:auto;margin-right:auto">
+  <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 6px;text-align:center">P&amp;L By Night</h2>
+  <p style="margin:0 0 18px;font-size:22px;color:#4a5a7c;text-align:center">Income Per Night Vs Direct Cost Per Night</p>
+  <div data-m="head" style="display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:12px;padding:11px 10px;border-bottom:1px solid #233E78;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:#4a5a7c"><span>Night</span><span style="text-align:center">Direct Income</span><span style="text-align:center">Direct Cost</span><span style="text-align:center">P&amp;L</span></div>
+  <sc-for list="{{ nights }}" as="d" hint-placeholder-count="7">
+    <div data-m="row" style="display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:12px;padding:12px 10px;border-bottom:1px solid #dfe3ec;font-size:22px;align-items:center">
+      <span><b>{{ d.artist }}</b><span style="color:#4a5a7c"> · {{ d.day }} {{ d.date }}</span></span>
+      <span data-l="Income" style="text-align:center;font-variant-numeric:tabular-nums">{{ d.incF }}</span>
+      <span data-l="Cost" style="text-align:center;font-variant-numeric:tabular-nums">{{ d.costF }}</span>
+      <span data-l="P&amp;L" style="text-align:center;font-variant-numeric:tabular-nums;font-weight:700;color:{{ d.pnlColor }}">{{ d.pnlF }}</span>
+    </div>
+  </sc-for>
+</section>
+
+<section style="margin-top:56px;max-width:900px;margin-left:auto;margin-right:auto">
+  <div>
+    <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 18px;text-align:center">Balance Sheet (Excl. First Night)</h2>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ balanceEx }}" as="b" hint-placeholder-count="5">
+        <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #dfe3ec;font-size:23px"><span>{{ b.name }}</span><span style="font-variant-numeric:tabular-nums;font-weight:600;color:{{ b.color }}">{{ b.amt }}</span></div>
+      </sc-for>
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Total P&amp;L</span><span style="color:#E0675F">{{ netEx }}</span></div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isIncome }}" hint-placeholder-val="{{ false }}">
+<section style="margin-top:40px">
+  <button onClick="{{ goSummary }}" style="background:none;border:1px solid #233E78;color:#233E78;font:inherit;font-size:20px;padding:6px 14px;cursor:pointer;margin-bottom:28px">← Back to Summary</button>
+  <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 6px">Income — Detailed</h2>
+  <p style="margin:0 0 28px;font-size:22px;color:#4a5a7c">Five revenue streams. Click a stream for its full details.</p>
+  <div data-m="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#233E78;border:1px solid #233E78">
+    <sc-for list="{{ streams }}" as="s" hint-placeholder-count="5">
+      <div onClick="{{ s.select }}" style="background:{{ s.bg }};color:{{ s.fg }};padding:24px 22px;cursor:pointer" style-hover="opacity:.92">
+        <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;opacity:.85">{{ s.num }} · {{ s.name }}</div>
+        <div style="font-family:'Libre Baskerville',serif;font-size:48px;margin-top:8px">{{ s.amt }}</div>
+        <div style="font-size:20px;margin-top:4px;opacity:.85">{{ s.pct }} of Income · {{ s.cta }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isSponsors }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #233E78;margin-top:40px"><span style="font-weight:700;font-size:23px">1 · Sponsors</span><span style="font-weight:700">{{ sponsorsTotal }}</span></div>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;padding:12px 8px;font-size:20px;color:#4a5a7c">
+    <span>Cash Received <b style="color:#233E78">{{ sponsorsCash }}</b></span><span>In Kind <b style="color:#233E78">{{ sponsorsKind }}</b></span><span>Cash Pending <b style="color:#E0675F">{{ sponsorsPending }}</b></span>
+  </div>
+  <sc-for list="{{ sponsors }}" as="s" hint-placeholder-count="6">
+    <div data-m="row" style="display:grid;grid-template-columns:minmax(0,1.4fr) auto minmax(0,2fr) 170px;gap:16px;align-items:center;padding:11px 10px;border-bottom:1px solid #dfe3ec;font-size:22px;background:{{ s.bg }}">
+      <span>{{ s.name }}</span>
+      <span style="font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ s.color }}">{{ s.status }}</span>
+      <span style="color:#4a5a7c">{{ s.note }}</span>
+      <span data-l="Amount" style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ s.amt }}</span>
+    </div>
+  </sc-for>
+  </sc-if>
+  <sc-if value="{{ isTents }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #233E78;margin-top:40px"><span style="font-weight:700;font-size:23px">2 · Tent Rent</span><span style="font-weight:700">{{ tentsCollected }}</span></div>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;padding:12px 8px;font-size:20px;color:#4a5a7c">
+    <span><b style="color:#233E78">83</b> Paid Tents</span><span><b style="color:#E0675F">{{ tentsFree }}</b> Free Tents</span><span><b style="color:#233E78">{{ trucksCount }}</b> Paid Trucks</span><span>Invoiced <b style="color:#233E78">{{ tentsInvoiced }}</b></span><span>Collected <b style="color:#233E78">{{ tentsCollected }}</b></span><span title="Tent 27 (رودي عامر) shows $500 paid in the list, but that cell is stored as text in Excel so the sheet total excludes it">List Sums to {{ tentsListed }}; Excel Total Used</span>
+    <button onClick="{{ toggleTents }}" style="margin-left:auto;background:none;border:1px solid #233E78;color:#233E78;font:inherit;font-size:20px;padding:4px 12px;cursor:pointer">{{ tentsBtn }}</button>
+  </div>
+  <sc-if value="{{ showTents }}" hint-placeholder-val="{{ false }}">
+    <div data-m="head" style="display:grid;grid-template-columns:110px minmax(0,1fr) 150px 150px;gap:16px;padding:11px 10px;border-bottom:1px solid #233E78;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:#4a5a7c"><span>Tent</span><span>Name</span><span style="text-align:right">Amount</span><span style="text-align:right">Paid</span></div>
+    <sc-for list="{{ tents }}" as="t" hint-placeholder-count="8">
+      <div style="border-bottom:1px solid #dfe3ec">
+        <div data-m="row" onClick="{{ t.toggle }}" style="display:grid;grid-template-columns:110px minmax(0,1fr) 150px 150px;gap:16px;padding:10px 10px;font-size:22px;cursor:{{ t.cursor }}"><span style="color:#4a5a7c">{{ t.no }}</span><span>{{ t.name }}</span><span data-l="Amount" style="text-align:right;font-variant-numeric:tabular-nums;color:{{ t.color }};text-decoration:{{ t.underline }};text-underline-offset:3px">{{ t.amt }}</span><span data-l="Paid" style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ t.paid }}</span></div>
+        <sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}"><div style="padding:0 10px 14px 136px;font-size:20px;color:#E0675F;font-weight:600">{{ t.note }}</div></sc-if>
+      </div>
+    </sc-for>
+  </sc-if>
+  </sc-if>
+  <sc-if value="{{ isSpots }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #233E78;margin-top:40px"><span style="font-weight:700;font-size:23px">3 · Perimeter Spots</span><span style="font-weight:700">{{ spotsTotal }}</span></div>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;padding:12px 8px;font-size:20px;color:#4a5a7c">
+    <span>Paid Spots <b style="color:#233E78">{{ spotsPaidCount }}</b></span><span>Spots Included for Sponsors <b style="color:#233E78">{{ spotsSponsorCount }}</b></span>
+  </div>
+  <div data-m="head" style="display:grid;grid-template-columns:90px minmax(0,1fr) 150px 170px;gap:16px;padding:11px 10px;border-bottom:1px solid #233E78;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:#4a5a7c"><span>Spot</span><span>Brand</span><span style="text-align:right">Amount</span><span style="text-align:right">Status</span></div>
+  <sc-for list="{{ spots }}" as="p" hint-placeholder-count="12">
+    <div data-m="row" style="display:grid;grid-template-columns:90px minmax(0,1fr) 150px 170px;gap:16px;padding:10px 10px;border-bottom:1px solid #dfe3ec;font-size:22px;background:{{ p.bg }}"><span style="color:#4a5a7c">{{ p.no }}</span><span>{{ p.name }}</span><span data-l="Amount" style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:{{ p.color }}">{{ p.amt }}</span><span style="text-align:right;font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ p.color }}">{{ p.status }}</span></div>
+  </sc-for>
+  </sc-if>
+  <sc-if value="{{ isSeats }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #233E78;margin-top:40px"><span style="font-weight:700;font-size:23px">4 · Seats + Lounges</span><span style="font-weight:700">{{ seatsTotal }}</span></div>
+  <div data-m="head" style="display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr)) 160px;gap:12px;padding:11px 10px;border-bottom:1px solid #dfe3ec;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:#4a5a7c"><span>Night</span><span>VVIP</span><span>VIP</span><span>Lounges</span><span>High Tables</span><span style="text-align:right">Total</span></div>
+  <sc-for list="{{ nights }}" as="d" hint-placeholder-count="7">
+    <div data-m="row" style="display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr)) 160px;gap:12px;padding:12px 10px;border-bottom:1px solid #dfe3ec;font-size:22px">
+      <span><b onClick="{{ d.open }}" style="cursor:{{ d.cursor }};text-decoration:{{ d.underline }};text-decoration-color:#E0675F;text-underline-offset:4px">{{ d.artist }}</b><span style="color:#4a5a7c"> · {{ d.date }}</span></span>
+      <span data-l="VVIP" style="color:#4a5a7c">{{ d.vvip }}</span><span data-l="VIP" style="color:#4a5a7c">{{ d.vip }}</span><span data-l="Lounges" style="color:#4a5a7c">{{ d.lounges }}</span><span data-l="High Tables" style="color:#4a5a7c">{{ d.ht }}</span>
+      <span data-l="Total" style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ d.incF }}</span>
+    </div>
+  </sc-for>
+  <sc-if value="{{ showContributors }}" hint-placeholder-val="{{ true }}">
+<section style="margin-top:64px">
+  <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 6px">Top Lounge &amp; High-Table Contributors</h2>
+  <p style="margin:0 0 18px;font-size:22px;color:#4a5a7c">Analysis of the key people behind lounge and high-table bookings across the week.</p>
+  <div data-m="head" style="display:grid;grid-template-columns:minmax(0,1.5fr) 120px 150px 170px minmax(0,2fr);gap:12px;padding:11px 10px;border-bottom:1px solid #233E78;font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:#4a5a7c"><span>Name</span><span>Lounges</span><span>High Tables</span><span style="text-align:right">Total Paid</span><span>Events</span></div>
+  <sc-for list="{{ contributors }}" as="k" hint-placeholder-count="10">
+    <div data-m="row" style="display:grid;grid-template-columns:minmax(0,1.5fr) 120px 150px 170px minmax(0,2fr);gap:12px;padding:11px 10px;border-bottom:1px solid #dfe3ec;font-size:22px;align-items:center">
+      <span style="font-weight:600">{{ k.name }}</span><span data-l="Lounges" style="color:#4a5a7c">{{ k.l }}</span><span data-l="High Tables" style="color:#4a5a7c">{{ k.h }}</span><span data-l="Paid" style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ k.amt }}</span><span style="color:{{ k.evColor }};font-weight:{{ k.evWeight }}">{{ k.events }}</span>
+    </div>
+  </sc-for>
+</section>
+  </sc-if>
+  </sc-if>
+  <sc-if value="{{ isContrib }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #233E78;margin-top:40px"><span style="font-weight:700;font-size:23px">5 · Contribution</span><span style="font-weight:700">{{ contribTotal }}</span></div>
+  <sc-for list="{{ contributions }}" as="k" hint-placeholder-count="1">
+    <div data-m="row" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,2fr) 170px;gap:16px;align-items:center;padding:11px 10px;border-bottom:1px solid #dfe3ec;font-size:22px">
+      <span>{{ k.name }}</span><span style="color:#E0675F;font-weight:600">{{ k.note }}</span><span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">{{ k.amt }}</span>
+    </div>
+  </sc-for>
+  </sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+<section style="margin-top:40px">
+  <button onClick="{{ goSeats }}" style="background:none;border:1px solid #233E78;color:#233E78;font:inherit;font-size:20px;padding:6px 14px;cursor:pointer;margin-bottom:28px">← Back to Seats + Lounges</button>
+  <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 6px">{{ artistName }} — Reservations</h2>
+  <p style="margin:0 0 28px;font-size:22px;color:#4a5a7c">All bookings for this night, as recorded in the reservations sheet.</p>
+  <sc-for list="{{ artistSections }}" as="s" hint-placeholder-count="2">
+    <div style="margin-bottom:48px;overflow-x:auto">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:2px solid #233E78"><span style="font-weight:700;font-size:26px">{{ s.title }}</span><span style="font-family:'Libre Baskerville',serif;font-size:30px">{{ s.total }}</span></div>
+      <div data-m="head" style="display:grid;grid-template-columns:{{ s.grid }};gap:12px;padding:10px 10px;border-bottom:1px solid #233E78;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:#4a5a7c;min-width:900px">
+        <sc-for list="{{ s.cols }}" as="c" hint-placeholder-count="8"><span style="text-align:{{ c.center }}">{{ c.label }}</span></sc-for>
+      </div>
+      <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="6">
+        <div data-m="row" style="display:grid;grid-template-columns:{{ s.grid }};gap:12px;align-items:center;padding:8px 10px;border-bottom:1px solid #dfe3ec;font-size:20px;background:{{ r.bg }};min-width:900px">
+          <sc-for list="{{ r.cells }}" as="x" hint-placeholder-count="8">
+            <span data-l="{{ x.label }}" style="text-align:{{ x.center }};overflow-wrap:break-word">
+              <sc-if value="{{ x.isBool }}" hint-placeholder-val="{{ false }}">
+                <input type="checkbox" checked="{{ x.checked }}" readOnly="{{ true }}" style="width:22px;height:22px;accent-color:#233E78;margin:0;vertical-align:middle;pointer-events:none">
+              </sc-if>
+              <sc-if value="{{ x.isText }}" hint-placeholder-val="{{ true }}"><span style="color:{{ x.color }}">{{ x.text }}</span></sc-if>
+              <sc-if value="{{ x.isNote }}" hint-placeholder-val="{{ false }}"><span onClick="{{ x.toggle }}" style="color:{{ x.color }};cursor:pointer;font-weight:600;text-decoration:underline dotted;text-underline-offset:3px">{{ x.text }}</span></sc-if>
+            </span>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ isCost }}" hint-placeholder-val="{{ false }}">
+<section style="margin-top:40px">
+  <button onClick="{{ goSummary }}" style="background:none;border:1px solid #233E78;color:#233E78;font:inherit;font-size:20px;padding:6px 14px;cursor:pointer;margin-bottom:28px">← Back to Summary</button>
+  <h2 style="font-family:'Libre Baskerville',serif;font-weight:400;font-size:40px;margin:0 0 6px">Cost — Detailed</h2>
+  <p style="margin:0 0 18px;font-size:22px;color:#4a5a7c">Click the Mistel Alcohol amount for the full bar breakdown. <span style="display:inline-block;padding:2px 8px;background:#dce5f7;color:#233E78;font-size:18px;font-weight:600;border-radius:3px">Blue Rows</span> were provided directly by sponsors, not paid in cash.</p>
+  <sc-for list="{{ expenseCats }}" as="c" hint-placeholder-count="6">
+    <div style="margin-bottom:26px">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #233E78;font-weight:700;font-size:23px"><span>{{ c.name }}</span><span>{{ c.total }}</span></div>
+      <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="3">
+        <div style="background:{{ it.bg }};border-bottom:1px solid #dfe3ec">
+          <div data-m="row" onClick="{{ it.toggle }}" style="display:grid;grid-template-columns:440px minmax(0,1fr) auto 180px;gap:16px;align-items:center;padding:12px 10px;font-size:22px;cursor:{{ it.cursor }}">
+            <span>
+              <sc-if value="{{ it.noPdf }}" hint-placeholder-val="{{ true }}">{{ it.name }}</sc-if>
+              <sc-if value="{{ it.hasPdf }}" hint-placeholder-val="{{ false }}"><span onClick="{{ it.openPdf }}" style="color:#233E78;font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-color:#E0675F;text-underline-offset:4px">{{ it.name }}</span><span style="font-size:15px;color:#E0675F;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;font-weight:700">Contract</span></sc-if>
+            </span>
+            <span style="color:#4a5a7c">{{ it.noteShort }}</span>
+            <span style="font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{{ it.badgeColor }}">{{ it.badge }}</span>
+            <span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;text-decoration:{{ it.underline }};text-underline-offset:3px">{{ it.amt }}</span>
+          </div>
+          <sc-if value="{{ it.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 8px 16px 8px;font-size:22px;color:#4a5a7c;line-height:1.55">
+              <sc-if value="{{ it.hasSplit }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:6px"><span>Covered by sponsor: <b style="color:#233E78">{{ it.sponsorF }}</b></span><span>Paid in cash: <b style="color:#233E78">{{ it.cashF }}</b></span></div>
+              </sc-if>
+              <div>{{ it.note }}</div>
+              <sc-if value="{{ it.isMistel }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:14px;padding:16px;background:#ffffff;border:1px solid #dfe3ec">
+                  <div style="font-weight:700;color:#233E78;margin-bottom:8px">Alcohol &amp; Bars — Full Breakdown</div>
+                  <div data-m="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+                    <div>
+                      <div style="font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:#E0675F;font-weight:600;margin-bottom:6px">Bars Income</div>
+                      <sc-for list="{{ alcoholIncome }}" as="a" hint-placeholder-count="3">
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #dfe3ec"><span>{{ a.name }}</span><span style="font-variant-numeric:tabular-nums;color:#233E78">{{ a.amt }}</span></div>
+                      </sc-for>
+                      <div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:700;color:#233E78"><span>Total Income</span><span>{{ alcoholIncomeTotal }}</span></div>
+                    </div>
+                    <div>
+                      <div style="font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:#E0675F;font-weight:600;margin-bottom:6px">Bars Cost</div>
+                      <sc-for list="{{ alcoholCost }}" as="a" hint-placeholder-count="6">
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #dfe3ec;background:{{ a.bg }}"><span>{{ a.name }}</span><span style="font-variant-numeric:tabular-nums;color:#233E78">{{ a.amt }}</span></div>
+                      </sc-for>
+                      <div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:700;color:#233E78"><span>Total Cost</span><span>{{ alcoholCostTotal }}</span></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:26px;color:#233E78"><span>Net to Pay Mistel (Cost − Bar Income)</span><span>{{ alcoholToPay }}</span></div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </sc-for>
+  <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Total Cost</span><span>{{ expenseTotal }}</span></div>
+</section>
+</sc-if>
+
+<sc-if value="{{ pdfOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(35,62,120,.55);z-index:50;display:flex;flex-direction:column;padding:32px">
+  <div style="display:flex;justify-content:space-between;align-items:center;background:#f6f4f0;padding:14px 20px;border:1px solid #233E78;border-bottom:none">
+    <span style="font-family:'Libre Baskerville',serif;font-size:26px;color:#233E78">{{ pdfName }} — Performance Agreement</span>
+    <div style="display:flex;gap:12px">
+      <a href="{{ pdfSrc }}" download="" style="font-size:18px;color:#233E78;border:1px solid #233E78;padding:6px 14px;text-decoration:none">Download</a>
+      <button onClick="{{ closePdf }}" style="background:#E0675F;color:#fff;border:none;font:inherit;font-size:18px;padding:6px 16px;cursor:pointer">Close ✕</button>
+    </div>
+  </div>
+  <iframe src="{{ pdfSrc }}" title="{{ pdfName }} contract" style="flex:1;width:100%;border:1px solid #233E78;background:#fff"></iframe>
+</div>
+</sc-if>
+
+<footer style="margin-top:120px;font-size:20px;color:#4a5a7c;line-height:1.6">Source: Ajaltoun Festivals Balance Sheet 2026 (Excel).<br>LBP bar income converted at 90,000 LBP/USD.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showContributors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { open: {}, showTents: false, page: 'summary', stream: null, artist: null, res: null, pdf: null };
+  componentDidMount() { if (window.RESERVATIONS) this.setState({ res: window.RESERVATIONS }); else fetch('./reservations.json').then(r => r.json()).then(res => this.setState({ res })).catch(() => {}); }
+  go(page) { this.setState({ page }); window.scrollTo(0, 0); }
+  artistSections() {
+    const src = this.state.res && this.state.artist && this.state.res[this.state.artist];
+    if (!src) return [];
+    const f = n => this.fmt(n);
+    return src.sections.map((s, si) => {
+      const isLounge = /LOUNGE|HIGH TABLE/i.test(s.title);
+      const hasAmt = s.rows.some(r => r.amount != null), hasNotes = s.rows.some(r => r.notes);
+      const anyOpen = s.rows.some((r, ri) => r.notes && this.state.open[this.state.artist + '|' + si + '|' + ri]);
+      const isBoolCol = l => /ASSIGNED|MESSAGE|PAID|ISSUED|CANCEL|CONFIRM|Payment/i.test(l);
+      // column specs: {src: index into r.cells | 'amount' | 'notes', label, width, align}
+      let spec = s.cols.map((c, i) => ({ src: i, label: c.label === '# of Persons' ? 'Persons' : c.label, raw: c.label,
+        width: /Name/.test(c.label) ? 'minmax(220px,2fr)' : /Phone|LINK/i.test(c.label) ? 'minmax(150px,1.2fr)' : /Persons/.test(c.label) ? '110px' : '120px',
+        align: isBoolCol(c.label) ? 'center' : 'left' }));
+      const amtCol = { src: 'amount', label: 'Amount', raw: 'Amount', width: '130px', align: 'right' };
+      const noteCol = { src: 'notes', label: 'Notes', raw: 'Notes', width: anyOpen ? 'minmax(420px,3fr)' : '170px', align: 'left' };
+      if (isLounge) {
+        spec = spec.filter(c => !/LINK|ASSIGNED|MESSAGE|PAID|ISSUED|Payment/i.test(c.raw));
+        const pi = spec.findIndex(c => /Persons/.test(c.raw));
+        if (pi >= 0) spec[pi].align = 'center';
+        if (hasAmt) spec.splice(pi + 1, 0, { ...amtCol, align: 'center' });
+        if (hasNotes) { const ph = spec.findIndex(c => /Phone/i.test(c.raw)); spec.splice(ph >= 0 ? ph + 1 : spec.length, 0, { ...noteCol, width: 'minmax(260px,2fr)', open: true }); }
+      } else {
+        spec = spec.filter(c => !/^Seat$|ASSIGNED|MESSAGE|PAID|ISSUED|CANCEL|CONFIRM/i.test(c.raw));
+        const pi = spec.findIndex(c => /Persons/.test(c.raw)); if (pi >= 0) spec[pi].align = 'center';
+        if (hasAmt) spec.push(amtCol);
+        if (hasNotes) spec.push({ ...noteCol, width: 'minmax(300px,3fr)', open: true });
+      }
+      const grid = spec.map(c => c.width).join(' ');
+      const cols = spec.map(c => ({ label: c.label, center: c.align }));
+      const title = s.title.replace(/\s*\((\d+)\$\)\s*$/, (m, n) => ' · $' + n + ' per seat');
+      return { key: si, title, total: s.total != null ? f(s.total) : '', grid, cols,
+        rows: s.rows.filter(r => !isLounge || (typeof r.cells[1] === 'string' && r.cells[1].trim())).map((r, ri) => { const isFree = r.cells.some(v => typeof v === 'string' && /free/i.test(v));
+          const nid = this.state.artist + '|' + si + '|' + ri, nOpen = !!this.state.open[nid];
+          const cells = spec.map((c, ci) => { const L0 = c.label;
+            if (c.src === 'amount') return { key: ci, label: L0, isBool: false, isText: true, text: r.amount != null ? f(r.amount) : '', center: c.align, color: '#233E78' };
+            if (c.src === 'notes') return c.open ? { key: ci, label: L0, isBool: false, isText: true, text: r.notes || '', center: c.align, color: '#4a5a7c' } : { key: ci, label: L0, isBool: false, isText: false, isNote: !!r.notes, center: c.align, color: '#E0675F', text: nOpen ? r.notes : 'View Note →', toggle: () => this.setState(st => ({ open: { ...st.open, [nid]: !st.open[nid] } })) };
+            let v = r.cells[c.src];
+            if (isFree && typeof v === 'boolean') { if (/PAID|MESSAGE/i.test(c.raw)) v = false; if (/ISSUED/i.test(c.raw)) v = true; }
+            return { key: ci, label: L0, isBool: typeof v === 'boolean', isText: typeof v !== 'boolean', checked: v === true, text: typeof v === 'boolean' ? '' : String(v), center: c.align, color: typeof v === 'string' && /free|sponsor|cancel|refund/i.test(v) ? '#E0675F' : '#233E78' };
+          });
+          return { key: ri, cells, bg: ri % 2 ? 'rgba(35,62,120,.03)' : 'transparent' }; }) };
+    });
+  }
+  fmt(n) { return (n < 0 ? '− ' : '') + '$' + Math.round(Math.abs(n)).toLocaleString('en-US'); }
+  data() {
+    // [name, amount, note, sponsorPart (in-kind), key]
+    const K = true;
+    return {
+      expenses: [
+        ['Musicians & Presenters', [
+          ['Melhem Zein', 40000, '', 0, null, 'contracts/Melhem Zein.pdf'], ['Baalback / Joe Daou', 26000, ''], ['Baalback Stage Extras (Bernard)', 5600, ''], ['Baalback Extras', 2180, 'Printing / Piano'],
+          ['Food For Corde Raisonante', 300, 'Dinner for Dabke'], ['Joseph Attieh', 20000, '', 0, null, 'contracts/Joseph Attieh.pdf'], ['Hadi Daou', 8500, '', 0, null, 'contracts/Hadi Daou.pdf'],
+          ['Lena Khater', 6600, ''], ['Nadi Abou Chabke + Others', 4250, '$1,500 each + $1,250 Sam Ghazel'], ['Ziad Malek Musicians + Dabke', 3200, '$2,500 music band + $700 Dabke'],
+          ['Christiane Mdawar, Presenter', 2000, ''], ['DJ Spark, 7 nights', 2000, '']]],
+        ['Stage & Platform', [
+          ['Bernard Sfeir (Stage + Light + Sound)', 30000, 'Sponsored by 360Degrees: $22,950 in kind, $7,050 paid for labour', 22950],
+          ['LED Screens — Robin Touma', 15000, 'Sponsor, nothing paid. All screens offered for free.', 15000],
+          ['AMZO Architects', 15000, 'Sponsor (Nicolas Sfeir), nothing paid', 15000]]],
+        ['Media', [
+          ['Keserwan Online', 8000, 'Including live cameras + full event video'],
+          ['BirdEye', 4000, '$1,900 sponsor, $2,100 paid', 1900],
+          ['Shabeb Keserwan', 2000, '']]],
+        ['Operation', [
+          ['Diesel For Generators', 5300, 'Sponsor, nothing paid: Khalifeh Petroleum ($2,000), Breidy Petroleum ($2,000), Khater Petroleum ($1,300)', 5300],
+          ['Rent Tents', 3900, 'Tents + wood benches'], ['Sarkis Mdawar, Electrical Operator', 3500, ''], ['Mohamad Kahraba', 1000, ''], ['Amzo Workers (Flex / Moquette / Arch)', 2000, 'Sponsor, nothing paid', 2000],
+          ['Dinner For Nawbe + Bayra2jiye', 3500, ''], ['Nawbet Jeita', 1500, ''], ['Master Security', 4550, '130 × $35'],
+          ['Generator Rent — Jad Khater', 4000, 'Sponsor, nothing paid', 4000],
+          ['Kristies Hostesses — Georges Khater', 4000, 'Sponsor $2,500, $1,500 paid', 2500],
+          ['Mistel Alcohol', 14086.61, 'Mistel supplied at cost. Amount is the bar cost minus bar income — full breakdown below.', 14086.61, 'mistel'],
+          ['Fireworks — Elie Geagea', 5500, ''], ['Belmark Moquette', 2375, ''], ['Black Plastic Chairs', 2500, 'Rabih Matta']]],
+        ['Materials & Printing', [
+          ['Hadid lal Flex + Drabzin + Bridge', 3600, 'Agop'], ['Entrance Arch', 1000, 'Painting + wood'], ['Carpet Plus Double Tap', 444, ''], ['Maliks Double Tap', 307, ''],
+          ['Flowers (Walid Abi Chaker)', 600, 'Mar Zakhya picture parade'], ['Bookstop Print for Invitation Cards', 216, 'Wayna Nay invitation cards'], ['Pro Print Boudy', 160, ''], ['Maliks', 54, '']]],
+        ['Bonus & Misc', [
+          ['Bonus for Baladiye Police Officers', 2900, '$250 each / $300 Msabatin / $350 Walid'], ['Bonus for Volunteers', 2400, '$300 × 5 / $400 Vanessa / $500 Valeria'], ['Haddad Masre', 975, ''],
+          ['Bonus For Baladiye Workers', 2000, '$200 each (10 pax)'], ['Food @ Francos', 130, 'For Msarwe, 1 day'], ['Food @ Mano (Rola Sfeir)', 800, 'For Msarwe, 6 days'],
+          ['Food For Municipality Officers', 600, ''], ['Extra Bonus Sayed + Ferekh', 800, '$400 Sayed / $400 Ferekh']]]
+      ],
+      alcoholIncome: [['Bars Income (USD)', 10168], ['Bars Income (LBP 37,025,000 @ 90,000)', 411.39]],
+      alcoholCost: [['Bartenders + Waiters', 5760], ['Spice and Rice', 490], ['Trust Market', 1392], ['2pac Trading (plastic cups & containers)', 315], ['Cheers (ice)', 384], ['Hachem (crudités)', 375], ['Em Rabih', 800], ['Nuts (extra for Melhem Zein)', 100], ['Marie Therese Thermos', 100], ['Rubic (lounges / high tables / fence)', 5000], ['Georges Flex Printing', 3769], ['Mistel', 6086, K], ['Divers (napkins…)', 50], ['Divers (orange / lemon)', 45]],
+      // [name, amount, status: paid|kind|pending, note]
+      sponsors: [
+        ['Sanita', 6000, 'paid'], ['Breidy Naturals', 12500, 'paid'], ['YAS Real Estate', 3000, 'paid'], ['Valeur', 3000, 'paid'], ['Moulin Dor', 10000, 'paid'], ['Zakhya Mrad', 3000, 'paid'],
+        ['Spinneys', 8000, 'pending'], ['Trust Market', 4000, 'paid'], ['Matta', 6000, 'paid'], ['Charles Malek', 7500, 'paid'], ['Salah Zoghby NOUR', 7500, 'paid'], ['Carre Parfait', 1500, 'paid'],
+        ['Abi Tayeh', 1500, 'paid'], ['Hachem', 3000, 'paid'], ['Dino City', 1000, 'pending'], ['S Real Estate', 300, 'paid'],
+        ['Almaza', 700, 'pending', '1,500 + free boxes (bought by Misho, in alcohol section) − ~$800 draft beer cost'],
+        ['Kristies', 2500, 'kind', 'Hostesses'], ['Jad Khater', 4000, 'kind', 'Generators rent'], ['AMZO — Nicolas Sfeir', 17000, 'kind', 'Stage architecture $15,000 + workers (flex / moquette / arch) $2,000'], ['BirdEye', 1900, 'kind', 'Media'],
+        ['Khalifeh Petroleum', 2000, 'kind', '1.5 tons diesel'], ['Breidy Petroleum', 2000, 'kind', '1.5 tons diesel'], ['Khater Petroleum', 1300, 'kind', '1 ton diesel'],
+        ['360Degrees', 22950, 'kind', 'Stage, light & sound. Only labour cost paid: $7,050 of $30,000'], ['Robin Touma', 15000, 'kind', 'Offered all LED screens for free']
+      ],
+      // [tent, name, amount, paid]
+      tents: [[1,'دايزي',750,750],[2,'إبراهيم الشماس',750,600],[3,'طارق مراد',750,750],[4,'وليد سعد',750,750],[5,'ساسين خليل',750,850],[6,'Joe Demian',650,650],[7,'سيمون زغيب',800,800],[8,'Roland Achkar',750,750],[9,'Hawadi',750,750],[10,'Charbel Breidy',750,750],[11,'Sajj Abou Fadi',750,750],[12,'Nancy Makhlouf',750,750],[13,'سبع البعينو',750,750],[14,'هشام صليبا',750,750],[15,'غسان قسيس',3000,3000],[19,'Fadi Bou Khalil',700,700],[20,'فراس باسيل',600,600],[21,'Yaman Badran',600,600],[22,'Charbel Saad',250,250],[23,'علي بدران',500,500],[24,'Marcel Sfeir',250,250],[25,'ايغت مشعلاني',250,250],[26,'بولين بردقان',250,250],[27,'رودي عامر',500,500],[29,'علاء غيث',250,250],[30,'كريستيان شهوان',250,250],[31,'زينة غريب',250,250],[32,'Romy Karam',250,250],[33,'ماغي عازار',1500,1500],[36,'Charbel Khalil',500,500],[37,'جو مارون',600,600],[38,'Elie Medawar',500,500],[39,'Ralf Fahed',500,500],[40,'Fadi Rachid',500,500],[41,'روبير الغزال',600,600],[42,'Ahmad Melham',750,750],[43,'Jason Sankary',1500,1500],[45,'شربل صقر',750,750],[46,'Elie Mal3ab',750,750],[47,'Hadi Khalil',600,600],[48,'عبدو صفير',500,500],[49,'Micheline Oueid',500,500],[50,'شربل عقيقي',500,500],[51,'الان حداد',500,550],[52,'وجدي ريشا',500,500],[53,'روني المتني',600,600],[54,'جوزف سعادة',600,600],[55,'Eva Maria Younes',600,600],[56,'Michel Ghosn',1200,1200],[58,'طوني فيصل',750,750],[59,'كعكتنا لبنانية',750,750],[60,'ميشال صفير',750,750],[61,'كريستيان خليفه',750,750],[62,'داني فرديسي',750,750],[63,'Akhawiyet Neswen',0,0,'Offered free of charge'],[64,'سامية خليفه',750,750],[65,'شارلي مخلوف',1500,1500],[67,'ايلي صفير',400,400],[68,'ريمي عقل',750,750],[69,'Tony Daou',750,750],[70,'Roula Sfeir',750,750],[71,'الياس زيادة',2250,2250],[74,'Marita Mdawar',1500,1500],[76,'Rita Chkeir',600,600],[77,'ديالا حلو',600,600],[78,'Jad Seif',0,0,'Seif Media — free tent in exchange for advertising / media coverage'],[79,'كابي سلمون',500,500],[80,'جان متني',500,500],[81,'Micheline Geagea',500,500],[82,'Jamal Mhanna',500,500],[83,'Jano Bou Khalil',500,500],[84,'Chantale Kanoe',120,120],[85,'أنطوان جعجع',1000,1000],['Truck 2','جورج عكر',750,750],['Truck 3','رالف القاعي',750,750],['Truck 4','Ahmad Melhem',750,750],['Truck 5','Maritta Mdawar',750,750]],
+      // [spot, brand, amount, paid]
+      spots: [[1,'Breidy Naturals',250,1],[2,'Breidy Naturals',250,1],[3,'Nashi',250,1],[4,'Yas Real Estate',250,1],[5,'Zen Living',250,1],[6,'Memories',250,1],[7,'Junior Barbershop',250,1],[8,'Pharmacie Johnny',250,1],[9,'Spice & Rice',250,1],[10,'S Real Estate',250,1],[12,'Ladies Nicolas Aouad',250,1],[13,'Paul Hamod',300,1],['13b','Jack Sfeir Warkis',250,1],[14,'Ajaltoun Municipality',0,1],[15,'Ajaltoun Municipality',0,1],[16,'Ajaltoun Municipality',0,1],[17,'Ajaltoun Municipality',0,1],[18,'Ajaltoun Municipality',0,1],[19,'Ajaltoun Festivals',0,1],[20,'Ajaltoun Festivals',0,1],[21,'Ajaltoun Festivals',0,1],[22,'Ajaltoun Festivals',0,1],[23,'Ajaltoun Festivals',0,1],[24,'Sanita',0,1],[25,'Sanita',0,1],[26,'Breidy Naturals',0,1],[27,'Breidy Naturals',0,1],[28,'AMZO',0,1],[29,'AMZO',0,1],[30,'AMZO',0,1],[31,'Moulin Dor',0,1],[32,'Moulin Dor',0,1],[33,'Gerrardo',0,1],[34,'Gerrardo',0,1],[35,'Mrad Electric',0,1],[36,'Mrad Electric',0,1],[37,'Spinneys',0,1],[38,'Spinneys',0,1],[39,'Trust Market',0,1],[40,'Trust Market',0,1],[41,'Scappa',0,1],[42,'Scappa',0,1],[43,'NOUR',0,1],[44,'NOUR',0,1],[45,'Hachem',0,1],[46,'Hachem',0,1],[47,'Matta',0,1],[48,'Matta',0,1],[49,'Jad Khater',0,1],[50,'Jad Khater',0,1],[51,'Kristies',0,1],[52,'Kristies',0,1],[53,'BirdEye',0,1],[54,'BirdEye',0,1],[55,'Kaytech',250,1],[56,'Mistel',250,1],[57,'Farideh',250,1],[58,'Chawki Nassar',250,1],[59,'360 Degrees',0,1],[60,'Robin Touma',0,1],[61,'Nicole Ghosn',250,1],[62,'SFM',500,1],[64,'Play Time',250,1]],
+      spotsSponsorCount: 40,
+      contributions: [['Nadim Kassis', 800, 'Paid the fees of 1 Full Lounge (Melhem Zein) as a contribution after the event.']],
+      // [artist, date, day, vvip n, vvip price, vip n, vip price, lounges n, lounges $, ht n, ht $, direct cost]
+      nights: [
+        ['Wayna Nay', '24 Aug', 'Mon', 0, 0, 0, 0, null, 0, null, 0, 34080, null],
+        ['Lena Khater', '25 Aug', 'Tue', 26, 20, 26, 10, null, 0, null, 0, 6600, 'LENA KHATER'],
+        ['Comedy', '26 Aug', 'Wed', 34, 20, 53, 10, 9, 3340, null, 0, 4250, 'COMEDY'],
+        ['Joseph Attieh', '27 Aug', 'Thu', 183, 30, 176, 20, 12, 5880, 5, 1200, 20000, 'JOSEPH ATTIEH'],
+        ['Hadi Daou', '28 Aug', 'Fri', 27, 30, 23, 20, 11, 5280, 7, 1800, 8500, 'HADI DAOU'],
+        ['Ziad Malek', '30 Aug', 'Sun', 0, 0, 0, 0, 2, 600, 0, 0, 3200, 'ZIAD MALEK'],
+        ['Melhem Zein', '31 Aug', 'Mon', 170, 40, 160, 30, 14, 12135, 18, 5300, 40000, 'MELHEM ZEIN']
+      ],
+      contributors: [['MILAD BREIDY',3,0,3660,'Melhem Zein, Joseph Attieh, Hadi Daou'],['EDGARD KHATER',2,0,2380,'Melhem Zein, Hadi Daou'],['SAAD BREIDY (INVITATION)',3,0,2365,'Melhem Zein, Joseph Attieh, Hadi Daou'],['MICHEL GHANEM',2,0,2080,'Joseph Attieh, Hadi Daou'],['JOE SFEIR / TAREK & RABIH BREIDY',2,0,1850,'Melhem Zein, Joseph Attieh'],['JEAN MALEK',2,0,1685,'Melhem Zein, Hadi Daou'],['ALPHONSE GHANEM',1,3,1600,'Melhem Zein, Hadi Daou, Ziad Malek'],['KATY MRAD & WAEL KASSIS',4,0,1575,'Melhem Zein, Joseph Attieh, Hadi Daou, Comedy'],['NADINE STAMBOULI',0,3,1440,'Melhem Zein, Joseph Attieh, Hadi Daou'],['DIMITRY LOUTFI',2,0,1350,'Melhem Zein, Joseph Attieh'],['ELIE SFEIR RAYES',1,0,1250,'Melhem Zein'],['JOHNNY KASSIS',2,0,1230,'Melhem Zein, Joseph Attieh'],['DIMITRY KHATER',1,0,1125,'Melhem Zein'],['NADIM KASSIS',1,0,800,'CONTRIBUTION'],['NAKHLE OUTAYEK',0,1,800,'Melhem Zein'],['RONALD ZOGHBI',3,0,750,'Comedy, Ziad Malek'],['GIGLAIRE',1,1,750,'Melhem Zein, Comedy'],['MICHEL KASSIS',1,1,750,'Melhem Zein, Comedy'],['GEORGES KHATER',1,0,750,'Melhem Zein'],['MAROUN MALEK',1,0,640,'Joseph Attieh, Hadi Daou'],['JUNIOR',1,0,625,'Melhem Zein'],['MICHO KASSIS',1,0,600,'Joseph Attieh'],['CLAUDE MDAWAR',1,0,550,'Comedy'],['ELIE MDAWAR JESSES',0,1,500,'Melhem Zein'],['KARIM RAAD',1,0,480,'Joseph Attieh'],['CHARBEL SFEIR',1,0,420,'Comedy'],['ROCKY NAJI',1,0,420,'Comedy'],['ELIE MDAWAR',0,1,400,'Joseph Attieh'],['HAMIDA MANSOUR',0,1,400,'Melhem Zein'],['JEAN KHALIFEH',0,1,400,'Melhem Zein'],['JOY MAALOUF',0,1,400,'Melhem Zein'],['RAMI SLIM',0,1,400,'Melhem Zein'],['RIAD ASMAR',0,1,400,'Melhem Zein'],['ANTHONY SFEIR',1,0,350,'Comedy'],['NINA HACHEM',0,1,320,'Joseph Attieh'],['RODRIGUE SAKR',0,1,240,'Hadi Daou'],['RONY AOUAD',0,1,240,'Hadi Daou'],['ALAIN',0,1,200,'Melhem Zein'],['HUSSAM NASSAR',0,1,200,'Melhem Zein'],['WASSIM EL KAYEM',0,1,160,'Joseph Attieh'],['ZAKHYA MRAD',2,0,0,'Melhem Zein, Joseph Attieh'],['JAD KHATER',0,1,0,'Melhem Zein'],['RAYMOND HBAIKA',1,0,0,'Hadi Daou'],['SPINNEYS',1,1,0,'Melhem Zein']]
+    };
+  }
+  renderVals() {
+    const d = this.data(), f = n => this.fmt(n), open = this.state.open;
+    const sum = (a, i) => a.reduce((s, x) => s + (x[i] || 0), 0);
+    const expT = d.expenses.reduce((s, [, it]) => s + sum(it, 1), 0);
+    const inKind = d.expenses.reduce((s, [, it]) => s + sum(it, 3), 0);
+    const sponsorsT = sum(d.sponsors, 1);
+    const tentsInv = sum(d.tents, 2), tentsCol = 52620; // Excel 'Tent Rent'!G96 (tent 27's $500 is text in the sheet, so Excel's SUM skips it)
+    const tentsListed = sum(d.tents, 3);
+    const sponsorsKind = d.sponsors.filter(s => s[2] === 'kind').reduce((a, s) => a + s[1], 0);
+    const spotsT = sum(d.spots, 2);
+    const spotsUnpaid = d.spots.filter(s => !s[3]).reduce((s, x) => s + x[2], 0);
+    const nightsInc = d.nights.map(n => n[3] * n[4] + n[5] * n[6] + n[8] + n[10]);
+    const seatsT = nightsInc.reduce((a, b) => a + b, 0);
+    const contribT = sum(d.contributions, 1);
+    const incT = sponsorsT + tentsCol + spotsT + seatsT + contribT;
+    const net = incT - expT;
+    const maxN = Math.max(...d.nights.map(n => n[11]), ...nightsInc);
+    const inc = [['Sponsors', sponsorsT], ['Tent Rent', tentsCol], ['Perimeter Spots', spotsT], ['Seats + Lounges', seatsT], ['Contribution', contribT]];
+    return {
+      incomeTotal: f(incT), expenseTotal: f(expT), net: f(net), netLabel: net < 0 ? 'Net Loss' : 'Net Profit', margin: Math.abs(Math.round(net / incT * 1000) / 10) + '%',
+      inKindTotal: f(inKind), inKindPct: Math.round(inKind / expT * 100) + '%',
+      balance: [['Festival Cost', -expT, '#E0675F'], ...inc.map(([n, v]) => [n, v, '#233E78'])].map(([name, amt, color]) => ({ name, amt: f(amt), color })),
+      balanceEx: [['Festival Cost (Excl. First Night)', -(expT - d.nights[0][11]), '#E0675F'], ...inc.map(([n, v]) => [n, v, '#233E78'])].map(([name, amt, color]) => ({ name, amt: f(amt), color })),
+      netEx: f(net + d.nights[0][11]),
+      incomeCats: inc.map(([name, v]) => ({ name, total: f(v), pct: Math.round(v / incT * 100) + '%' })),
+      expenseCats: d.expenses.map(([name, items], ci) => {
+        const t = sum(items, 1), k = sum(items, 3);
+        return { name, total: f(t), pct: Math.round(t / expT * 100) + '%', cashPct: Math.round((t - k) / expT * 100) + '%', inKindPct: Math.round(k / expT * 100) + '%',
+          items: items.map(([n, amt, note, sp, key, pdf], ii) => { const id = ci + '-' + ii, isK = !!sp, full = sp >= amt - 0.01; return {
+            name: n, pdf: pdf || '', hasPdf: !!pdf, noPdf: !pdf, openPdf: pdf ? () => this.setState({ pdf: { src: pdf, name: n } }) : undefined, amt: f(amt), noteShort: note || '', note: note || 'No additional notes. Paid in cash.', open: key === 'mistel' && !!open[id], toggle: key === 'mistel' ? () => this.setState(s => ({ open: { ...s.open, [id]: !s.open[id] } })) : undefined,
+            cursor: key === 'mistel' ? 'pointer' : 'default', underline: key === 'mistel' ? 'underline dotted' : 'none',
+            bg: isK ? '#dce5f7' : 'transparent', badge: isK ? (full ? 'Sponsor · In Kind' : 'Partly Sponsored') : '', badgeColor: '#233E78',
+            hasSplit: isK && !full, sponsorF: f(sp || 0), cashF: f(amt - (sp || 0)), isMistel: key === 'mistel' }; }) };
+      }),
+      alcoholIncome: d.alcoholIncome.map(([name, a]) => ({ name, amt: f(a) })), alcoholIncomeTotal: f(sum(d.alcoholIncome, 1)),
+      alcoholCost: d.alcoholCost.map(([name, a, k]) => ({ name, amt: f(a), bg: k ? '#dce5f7' : 'transparent' })), alcoholCostTotal: f(sum(d.alcoholCost, 1)),
+      alcoholToPay: f(sum(d.alcoholCost, 1) - sum(d.alcoholIncome, 1)),
+      sponsorsTotal: f(sponsorsT), sponsorsCash: f(d.sponsors.filter(s => s[2] === 'paid').reduce((a, s) => a + s[1], 0)), sponsorsPending: f(d.sponsors.filter(s => s[2] === 'pending').reduce((a, s) => a + s[1], 0)),
+      sponsors: d.sponsors.map(([name, amt, st, note]) => ({ name, amt: f(amt), note: note || '', status: st === 'kind' ? 'In Kind' : st === 'pending' ? 'Pending' : 'Paid', color: st === 'pending' ? '#E0675F' : '#233E78', bg: st === 'kind' ? '#dce5f7' : 'transparent' })),
+      sponsorsKind: f(sponsorsKind),
+      tentsInvoiced: f(tentsInv), tentsCollected: f(tentsCol), tentsListed: f(tentsListed), tentsCount: d.tents.filter(t => t[2] > 0 && typeof t[0] === 'number').length, trucksCount: d.tents.filter(t => typeof t[0] !== 'number').length, showTents: this.state.showTents,
+      tentsBtn: this.state.showTents ? 'Hide List' : 'Show All Tents', toggleTents: () => this.setState(s => ({ showTents: !s.showTents })),
+      tents: d.tents.map(([no, name, amt, paid, tag]) => ({ no, name, amt: tag ? 'Free' : f(amt), paid: tag ? '—' : f(paid), color: tag ? '#E0675F' : '#233E78', isFree: !!tag, cursor: tag ? 'pointer' : 'default', underline: tag ? 'underline dotted' : 'none', open: !!open['tent' + no], note: tag || '', toggle: tag ? () => this.setState(s => ({ open: { ...s.open, ['tent' + no]: !s.open['tent' + no] } })) : undefined })),
+      tentsFree: d.tents.filter(t => t[4]).length,
+      spotsTotal: f(spotsT), spotsPaidCount: d.spots.filter(s => s[2] > 0).length, spotsSponsorCount: d.spots.filter(s => s[2] === 0).length, spotsUnpaid: f(spotsUnpaid),
+      spots: d.spots.map(([no, name, amt]) => ({ no, name, amt: amt ? f(amt) : 'Free', status: amt ? 'Paid' : 'Sponsor', color: amt ? '#233E78' : '#E0675F', bg: amt ? 'transparent' : '#dce5f7' })),
+      seatsTotal: f(seatsT),
+      nightsIncTotal: f(seatsT), nightsCostTotal: f(d.nights.reduce((a, n) => a + n[11], 0)), nightsPnlTotal: f(seatsT - d.nights.reduce((a, n) => a + n[11], 0)),
+      nights: d.nights.map((n, i) => ({ artist: n[0], date: n[1], day: n[2], incF: f(nightsInc[i]), costF: f(n[11]), pnlF: f(nightsInc[i] - n[11]), pnlColor: nightsInc[i] - n[11] < 0 ? '#E0675F' : '#2e7d4f', incH: Math.round(nightsInc[i] / maxN * 100) + '%', costH: Math.round(n[11] / maxN * 100) + '%',
+        vvip: n[3] ? n[3] + ' × $' + n[4] + ' = ' + f(n[3] * n[4]) : '—', vip: n[5] ? n[5] + ' × $' + n[6] + ' = ' + f(n[5] * n[6]) : '—',
+        open: n[12] ? () => this.setState({ page: 'artist', artist: n[12] }) : undefined, cursor: n[12] ? 'pointer' : 'default', underline: n[12] ? 'underline' : 'none', lounges: n[7] == null ? 'n/a' : n[7] ? n[7] + ' · ' + f(n[8]) : '—', ht: n[9] == null ? 'n/a' : n[9] ? n[9] + ' · ' + f(n[10]) : '—' })),
+      contributors: d.contributors.map(([name, l, h, amt, events]) => ({ name, l, h, amt: f(amt), events, evColor: events === 'CONTRIBUTION' ? '#E0675F' : '#4a5a7c', evWeight: events === 'CONTRIBUTION' ? 700 : 400 })),
+      showContributors: this.props.showContributors ?? true,
+      isArtist: this.state.page === 'artist', artistName: this.state.artist || '', goSeats: () => { this.setState({ page: 'income', stream: 3 }); window.scrollTo(0, 0); },
+      artistSections: this.artistSections(),
+      pdfOpen: !!this.state.pdf, pdfSrc: this.state.pdf ? this.state.pdf.src : '', pdfName: this.state.pdf ? this.state.pdf.name : '', closePdf: () => this.setState({ pdf: null }),
+      isSummary: this.state.page === 'summary', isCost: this.state.page === 'cost', isIncome: this.state.page === 'income',
+      goCost: () => this.go('cost'), goSummary: () => this.go('summary'), goIncome: () => this.go('income'),
+      isSponsors: this.state.stream === 0, isTents: this.state.stream === 1, isSpots: this.state.stream === 2, isSeats: this.state.stream === 3, isContrib: this.state.stream === 4,
+      contribTotal: f(contribT), contributions: d.contributions.map(([name, amt, note]) => ({ name, amt: f(amt), note })),
+      streams: inc.map(([name, v], i) => { const sel = this.state.stream === i; return { num: i + 1, name, amt: f(v), pct: Math.round(v / incT * 100) + '%',
+        bg: sel ? '#E0675F' : '#f6f4f0', fg: sel ? '#ffffff' : '#233E78', cta: sel ? 'Showing Details' : 'View Details →', select: () => this.setState({ stream: sel ? null : i }) }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
