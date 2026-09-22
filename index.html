@@ -126,7 +126,7 @@ a{color:#E0675F}a:hover{color:#b8493f}
       <sc-for list="{{ balance }}" as="b" hint-placeholder-count="5">
         <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #dfe3ec;font-size:23px"><span>{{ b.name }}</span><span style="font-variant-numeric:tabular-nums;font-weight:600;color:{{ b.color }}">{{ b.amt }}</span></div>
       </sc-for>
-      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Total P&amp;L</span><span style="color:#E0675F">{{ net }}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Net Loss</span><span style="color:#E0675F">{{ net }}</span></div>
     </div>
   </div>
 </section>
@@ -152,7 +152,7 @@ a{color:#E0675F}a:hover{color:#b8493f}
       <sc-for list="{{ balanceEx }}" as="b" hint-placeholder-count="5">
         <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #dfe3ec;font-size:23px"><span>{{ b.name }}</span><span style="font-variant-numeric:tabular-nums;font-weight:600;color:{{ b.color }}">{{ b.amt }}</span></div>
       </sc-for>
-      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Total P&amp;L</span><span style="color:#E0675F">{{ netEx }}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid #233E78;font-family:'Libre Baskerville',serif;font-size:30px"><span>Net Profit</span><span style="color:#233E78">{{ netEx }}</span></div>
     </div>
   </div>
 </section>
@@ -356,7 +356,8 @@ a{color:#E0675F}a:hover{color:#b8493f}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showContributors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
-  state = { open: {}, showTents: false, page: 'summary', stream: null, artist: null, res: null, pdf: null };
+  state = (() => { let s = {}; try { s = JSON.parse(sessionStorage.getItem('pnl-view') || '{}'); } catch (e) {} return { open: {}, showTents: false, page: s.page || 'summary', stream: s.stream ?? null, artist: s.artist || null, res: null, pdf: null }; })();
+  componentDidUpdate() { try { sessionStorage.setItem('pnl-view', JSON.stringify({ page: this.state.page, stream: this.state.stream, artist: this.state.artist })); } catch (e) {} }
   componentDidMount() { if (window.RESERVATIONS) this.setState({ res: window.RESERVATIONS }); else fetch('./reservations.json').then(r => r.json()).then(res => this.setState({ res })).catch(() => {}); }
   go(page) { this.setState({ page }); window.scrollTo(0, 0); }
   artistSections() {
